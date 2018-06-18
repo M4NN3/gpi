@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">gpi</string>
+    <string name="hello_world">Hola Mundo!</string>
+    <string name="action_settings">Configuración</string>
+    <string name="email">Correo</string>
+    <string name="passowrd">Contraseña</string>
+    <string name="login">BIENVENIDO</string>
+    <string name="loginBtn">INGRESAR</string>
+    <string name="show_pwd">Mostrar contraseña</string>
+    <string name="hide_pwd">Ocultar contraseña</string>
+    <string name="forgot">¿Olvidó su contraseña??</string>
+    <string name="closebutton">Close Button for Activity</string>
+    <string name="newUser">¿Aún no tiene una cuenta? Regístrese aquí.</string>
+    <string name="fullName">Nombres y Apellidos</string>
+    <string name="mobileNumber">Número celular</string>
+    <string name="location">País</string>
+    <string name="confirmPassword">Confirmar contraseña</string>
+    <string name="terms_conditions">Al registrarse, ud. estará aceptando los Términos y Condiciones.</string>
+    <string name="signUp">CREAR UNA CUENTA</string>
+    <string name="already_user">¿Ya tiene una cuenta? Ingrese aquí.</string>
+    <string name="registered_emailid">Por favor su dirección de correo</string>
+    <string name="submit">SUBMIT</string>
+    <string name="back">BACK</string>
+    <string name="badMail">Ingrese una dirección de correo válida.</string>
+    <string name="pbTitle">Iniando sesión…</string>
+    <string name="title_activity_home_app">HomeApp</string>
+</resources>
