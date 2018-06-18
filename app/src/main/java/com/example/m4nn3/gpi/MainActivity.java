@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
                             public void onResponse(Call<List<Usuario>> call, Response<List<Usuario>> response) {
                                 if (response.isSuccessful()){
                                     //Log.d("body", response.body().get(0).getCreatedAt().toString());
-
                                     new CustomToast().Show_Toast(MainActivity.this, getWindow().getDecorView(),
                                             "Bienvenido: " + response.body().get(0).getNombreUsuario());
                                 }
