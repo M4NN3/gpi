@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="@color/micolor"
+    >
+        <ImageView
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:src="@drawable/success"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¿Desea agregar más personas?"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:fontFamily="@font/allerta"/>
+    <LinearLayout
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sí, agregaré a más adultos"
+            android:textColor="@color/micolor"
+            android:textSize="11dp"
+            android:textStyle="bold"
+            android:fontFamily="@font/allerta"
+            android:layout_marginRight="50dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No, lo haré después"
+            android:textColor="@color/micolor"
+            android:textSize="11dp"
+            android:textStyle="bold"
+            android:fontFamily="@font/allerta"/>
+    </LinearLayout>
+</LinearLayout>

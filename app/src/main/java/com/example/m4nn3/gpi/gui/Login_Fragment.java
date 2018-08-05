@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentManager;
 import android.text.InputType;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -187,33 +188,38 @@ public class Login_Fragment extends Fragment implements View.OnClickListener{
             // Else do login and do your stuff
         else{
             //loginButton.setEnabled(false);
-            progressDialog.show();
-            Usuario u = new Usuario(getEmailId, getPassword, "algo");
-            MyApiEndpointInterface myApiEndpointInterface = RetrofitClientInstance.getRetrofitInstance()
-                    .create(MyApiEndpointInterface.class);
-            Call<Mensaje> call = myApiEndpointInterface.doLogin(u);
-            call.enqueue(new Callback<Mensaje>() {
-                @Override
-                public void onResponse(Call<Mensaje> call, Response<Mensaje> response) {
-                    progressDialog.dismiss();
-                    String msj = response.body().getMensaje();
-
-                    if (response.isSuccessful()){
-                        if (msj.equals("login")){
-                            Toast.makeText(getActivity(), "Bienvenido!", Toast.LENGTH_LONG).show();
+            try {
+                progressDialog.show();
+                Usuario u = new Usuario(getEmailId, getPassword, "algo");
+                MyApiEndpointInterface myApiEndpointInterface = RetrofitClientInstance.getRetrofitInstance()
+                        .create(MyApiEndpointInterface.class);
+                Call<Mensaje> call = myApiEndpointInterface.doLogin(u, "bWFzdGVyOm1hc3Rlcg==");
+                call.enqueue(new Callback<Mensaje>() {
+                    @Override
+                    public void onResponse(Call<Mensaje> call, Response<Mensaje> response) {
+                        progressDialog.dismiss();
+                        if (response.isSuccessful()) {
+                            String msj = response.body().getMensaje();
+                            if (msj.equals("login")) {
+                                Toast.makeText(getActivity(), "Bienvenido!", Toast.LENGTH_LONG).show();
+                            } else
+                                Toast.makeText(getActivity(), "Usuario o contraseña incorrectos", Toast.LENGTH_LONG).show();
                         }
                         else
-                            Toast.makeText(getActivity(), "Usuario o contraseña incorrectos", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), "La respuesta no es successful", Toast.LENGTH_LONG).show();
                     }
-                }
 
-                @Override
-                public void onFailure(Call<Mensaje> call, Throwable t) {
-                    progressDialog.dismiss();
-                    new CustomToast().Show_Toast(getActivity(), view,
-                            "Ocurrió un error");
-                }
-            });
+                    @Override
+                    public void onFailure(Call<Mensaje> call, Throwable t) {
+                        progressDialog.dismiss();
+                        new CustomToast().Show_Toast(getActivity(), view,
+                                "Ocurrió un error");
+                    }
+                });
+            }
+            catch (Exception e){
+                Log.d("erro", e.getMessage());
+            }
         }
     }
     public void onLoginSuccess() {

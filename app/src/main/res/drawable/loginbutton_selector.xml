@@ -2,15 +2,13 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- When item pressed this item will be triggered -->
     <item android:state_pressed="true"><shape android:shape="rectangle">
-        <corners android:radius="3dp" />
-
-        <solid android:color="@color/button_selectorcolor" />
+        <corners android:radius="4dp"/>
+        <solid android:color="#9E9E9E"/>
     </shape></item>
 
     <!-- By default the background will be this item -->
     <item><shape android:shape="rectangle">
         <corners android:radius="3dp" />
-
-        <solid android:color="@color/white_greyish" />
+        <solid android:color="#009688" />
     </shape></item>
 </selector>

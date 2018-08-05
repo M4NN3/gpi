@@ -41,24 +41,30 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View arg0) {
                         //finish();
-                        MyApiEndpointInterface myApiEndpointInterface = RetrofitClientInstance.getRetrofitInstance()
-                                .create(MyApiEndpointInterface.class);
-                        Call<List<Usuario>> call = myApiEndpointInterface.getAllUsuarios();
-                        call.enqueue(new Callback<List<Usuario>>() {
-                            @Override
-                            public void onResponse(Call<List<Usuario>> call, Response<List<Usuario>> response) {
-                                if (response.isSuccessful()){
-                                    //Log.d("body", response.body().get(0).getCreatedAt().toString());
-                                    new CustomToast().Show_Toast(MainActivity.this, getWindow().getDecorView(),
-                                            "Bienvenido: " + response.body().get(0).getNombreUsuario());
+                        Log.d("msj","click");
+                        try {
+                            MyApiEndpointInterface myApiEndpointInterface = RetrofitClientInstance.getRetrofitInstance()
+                                    .create(MyApiEndpointInterface.class);
+                            Call<List<Usuario>> call = myApiEndpointInterface.getAllUsuarios();
+                            call.enqueue(new Callback<List<Usuario>>() {
+                                @Override
+                                public void onResponse(Call<List<Usuario>> call, Response<List<Usuario>> response) {
+                                    if (response.isSuccessful()){
+                                        //Log.d("body", response.body().get(0).getCreatedAt().toString());
+                                        new CustomToast().Show_Toast(MainActivity.this, getWindow().getDecorView(),
+                                                "Bienvenido: " + response.body().get(0).getNombreUsuario());
+                                    }
                                 }
-                            }
-
-                            @Override
-                            public void onFailure(Call<List<Usuario>> call, Throwable t) {
-                                Toast.makeText(MainActivity.this, "Error al registrar ", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                                @Override
+                                public void onFailure(Call<List<Usuario>> call, Throwable t) {
+                                    Toast.makeText(MainActivity.this, "Error al registrar ", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                        catch (Exception e){
+                            Toast.makeText(MainActivity.this, "Error" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Log.d("msj","clickerror");
+                    }
                         /*HttpReqTask reqTask = new HttpReqTask(MainActivity.this);
                         reqTask.execute();*/
                     }
