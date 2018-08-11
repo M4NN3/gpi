@@ -4,10 +4,24 @@ import com.google.gson.annotations.SerializedName;
 
 public class Mensaje {
     @SerializedName("msj")
-    String mensaje;
+    private String mensaje;
+    @SerializedName("success")
+    private String estado;
 
-    public Mensaje(String mensaje) {
+    public Mensaje() {
+    }
+
+    public Mensaje(String mensaje, String estado) {
         this.mensaje = mensaje;
+        this.estado = estado;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     public String getMensaje() {

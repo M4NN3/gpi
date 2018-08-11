@@ -1,5 +1,6 @@
 package com.example.m4nn3.gpi.network;
 
+import com.example.m4nn3.gpi.model.Cuidador;
 import com.example.m4nn3.gpi.model.Mensaje;
 import com.example.m4nn3.gpi.model.Usuario;
 
@@ -19,23 +20,19 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface MyApiEndpointInterface {
-    @Headers({
-            "Content-Type: application/json",
-            "Authorization: Basic bWFzdGVyOm1hc3Rlcg=="
-    })
     /*@GET("api/{username}")
     Call<Usuario> getUser(@Path("username") String username);*/
     /*@GET("group/{id}/users")
     Call<List<User>> groupList(@Path("id") int groupId, @Query("sort") String sort);*/
+    @Headers({"Content-Type: application/json", "Authorization: Basic bWFzdGVyOm1hc3Rlcg=="})
     @POST("api/usuarios")
     Call<Mensaje> addUsuario(@Body Usuario user);
 
-    @POST("api/usuarios/user")
-    Call<Mensaje> doLogin(@Body Usuario user, @Header("Authorization") String authorization);
+    @Headers({"Content-Type: application/json", "Authorization: Basic bWFzdGVyOm1hc3Rlcg=="})
+    @POST("api/usuarios/login")
+    Call<Cuidador> doLogin(@Body Usuario user);
 
-    @Headers({
-            "Authorization: Basic bWFzdGVyOm1hc3Rlcg=="
-    })
+    @Headers({"Content-Type: application/json", "Authorization: Basic bWFzdGVyOm1hc3Rlcg=="})
     @GET("api/usuarios")
     Call<List<Usuario>> getAllUsuarios();
     /*@GET("api/usuarios/user/{email}")

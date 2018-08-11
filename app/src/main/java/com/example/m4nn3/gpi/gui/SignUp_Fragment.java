@@ -7,6 +7,7 @@ import android.content.res.XmlResourceParser;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import com.example.m4nn3.gpi.CustomToast;
 import com.example.m4nn3.gpi.MainActivity;
 import com.example.m4nn3.gpi.R;
 import com.example.m4nn3.gpi.Utils;
+import com.example.m4nn3.gpi.model.Cuidador;
 import com.example.m4nn3.gpi.model.Mensaje;
 import com.example.m4nn3.gpi.model.Usuario;
 import com.example.m4nn3.gpi.network.MyApiEndpointInterface;
@@ -147,23 +149,35 @@ public class SignUp_Fragment extends Fragment implements View.OnClickListener{
         else{
             progressDialog.show();
             //Primero valdida q el email no este en la BD
-            Usuario u = new Usuario(getEmailId, getPassword, "no sé q va aquí");
+            Usuario u = new Usuario();
+            u.setNombreUsuario("excalibur");
+            u.setContrasenia("ppp");
+            Cuidador cuidador = new Cuidador();
+            cuidador.setNombre(getFullName);
+            cuidador.setFamilia("Rodriguez");
+            cuidador.setCorreo(getEmailId);
+            cuidador.setFamiliatelef("123");
+            cuidador.setRfid("777");
+            cuidador.setTelefono("456");
+            u.setCuidador(cuidador);
             MyApiEndpointInterface myApiEndpointInterface = RetrofitClientInstance.getRetrofitInstance()
                     .create(MyApiEndpointInterface.class);
             Call<Mensaje> call = myApiEndpointInterface.addUsuario(u);
             call.enqueue(new Callback<Mensaje>() {
                 @Override
                 public void onResponse(Call<Mensaje> call, Response<Mensaje> response) {
-                    String msj="";
+                    Mensaje msj = new Mensaje();
                     progressDialog.dismiss();
                     if (response.isSuccessful()){
-                        msj = response.body().getMensaje();
-                        if (msj.equals("agregado")){
-                            new MainActivity().replaceLoginFragment(true);
+                        msj = response.body();
+                        if (msj.getEstado().equals("1")){
+                            //new MainActivity().replaceLoginFragment(true);
+                            Log.d("Reg", msj.getMensaje());
                             Toast.makeText(getActivity(), "Registro exitoso. Inicie sesión...", Toast.LENGTH_SHORT).show();
                         }
                         else
-                            Toast.makeText(getActivity(), response.body().getMensaje(), Toast.LENGTH_SHORT).show();
+                            Log.d("NoReg", msj.getMensaje());
+                            //Toast.makeText(getActivity(), msj.getMensaje(), Toast.LENGTH_SHORT).show();
                     }
                 }
 

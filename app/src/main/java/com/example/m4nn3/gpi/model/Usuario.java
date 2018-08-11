@@ -8,23 +8,14 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Usuario implements Serializable{
-    @SerializedName("id")
-    @Expose
+    @SerializedName("usuarioId")
     private long id;
-
-    @SerializedName("nombreUsuario")
-    @Expose
     private String nombreUsuario;
-
-    @SerializedName("contrasenia")
-    @Expose
     private String contrasenia;
-
-    @SerializedName("tipo")
-    @Expose
     private String tipo;
-    private Date createdAt;
-    private Date updatedAt;
+    private Cuidador cuidador;
+    public Usuario() {
+    }
 
     public Usuario(String nombreUsuario, String contrasenia, String tipo) {
         this.nombreUsuario = nombreUsuario;
@@ -64,19 +55,11 @@ public class Usuario implements Serializable{
         this.tipo = tipo;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
+    public Cuidador getCuidador() {
+        return cuidador;
     }
 
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
+    public void setCuidador(Cuidador cuidador) {
+        this.cuidador = cuidador;
     }
 }

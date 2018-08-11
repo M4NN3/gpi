@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.example.m4nn3.gpi.CustomToast;
 import com.example.m4nn3.gpi.R;
 import com.example.m4nn3.gpi.Utils;
+import com.example.m4nn3.gpi.model.Cuidador;
 import com.example.m4nn3.gpi.model.Mensaje;
 import com.example.m4nn3.gpi.model.Usuario;
 import com.example.m4nn3.gpi.network.MyApiEndpointInterface;
@@ -182,7 +183,7 @@ public class Login_Fragment extends Fragment implements View.OnClickListener{
 
         }
         // Check if email id is valid or not
-        else if (!m.find())
+        else if (m.find())
             new CustomToast().Show_Toast(getActivity(), view,
                     "Ingrese un correo válido");
             // Else do login and do your stuff
@@ -190,30 +191,27 @@ public class Login_Fragment extends Fragment implements View.OnClickListener{
             //loginButton.setEnabled(false);
             try {
                 progressDialog.show();
-                Usuario u = new Usuario(getEmailId, getPassword, "algo");
+                Usuario u = new Usuario();
+                u.setContrasenia(getPassword);
+                u.setNombreUsuario(getEmailId);
                 MyApiEndpointInterface myApiEndpointInterface = RetrofitClientInstance.getRetrofitInstance()
                         .create(MyApiEndpointInterface.class);
-                Call<Mensaje> call = myApiEndpointInterface.doLogin(u, "bWFzdGVyOm1hc3Rlcg==");
-                call.enqueue(new Callback<Mensaje>() {
+                Call<Cuidador> call = myApiEndpointInterface.doLogin(u);
+                call.enqueue(new Callback<Cuidador>() {
                     @Override
-                    public void onResponse(Call<Mensaje> call, Response<Mensaje> response) {
-                        progressDialog.dismiss();
-                        if (response.isSuccessful()) {
-                            String msj = response.body().getMensaje();
-                            if (msj.equals("login")) {
-                                Toast.makeText(getActivity(), "Bienvenido!", Toast.LENGTH_LONG).show();
-                            } else
-                                Toast.makeText(getActivity(), "Usuario o contraseña incorrectos", Toast.LENGTH_LONG).show();
+                    public void onResponse(Call<Cuidador> call, Response<Cuidador> response) {
+                        if (response.isSuccessful()){
+                            Log.d("usuario", response.body().getUsuario().getContrasenia());
                         }
-                        else
-                            Toast.makeText(getActivity(), "La respuesta no es successful", Toast.LENGTH_LONG).show();
-                    }
-
-                    @Override
-                    public void onFailure(Call<Mensaje> call, Throwable t) {
+                        else if (response.code() == 404){
+                            Toast.makeText(getActivity(), "Usuario y contraseña incorrectos", Toast.LENGTH_LONG).show();
+                        }
                         progressDialog.dismiss();
-                        new CustomToast().Show_Toast(getActivity(), view,
-                                "Ocurrió un error");
+                    }
+                    @Override
+                    public void onFailure(Call<Cuidador> call, Throwable t) {
+                        progressDialog.dismiss();
+                        Log.d("Error", t.getMessage());
                     }
                 });
             }
